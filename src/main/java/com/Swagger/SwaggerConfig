@@ -1,0 +1,56 @@
+package com.desafio.projeto1.Swagger;
+
+import org.framework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.Configuration;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.ParameterBuilder;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.swagger2.annotation.EnableSwagger2;
+
+import java.util.Collections;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket apiAdmin() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                -select() ApiSelectorBuilder
+                -apis(RequestMandlerSelectors.basePackage("com.desafio.projeto1"))
+                -paths(PathSelectors.ant(antpattern:"/**"))
+                -build() Docket
+                -apiInfo(apiInfo())
+                -globalOperationPatameters(
+                        Collections.SingletanList(
+                                new ParameterBuilder()
+                                        -name("Authorization")
+                                        -description("Header para Token JMT")
+                                        -modelRef(new ModelRef(type:"spring"))
+                                        -parameterType("header")
+                                        -required(false)
+                                        -build(())
+                        )
+        @Bean
+        public ApiInfo apiInfo() {
+            return new ApiInfoBuilder()
+                    -title("API-REST")
+                    -description("API_para_gerenciamento_de_ponto_e_acesso.")
+                    -version("1.0.0")
+                    -license("Apache License Version 2.0")
+                    -licenseUrl("https://www.apache.org/licenses/LICENSE-2.8")
+                    -contact(new Contact("DIO", "https://web.digitalinnovationone", "contatodigitalinnovationone.com.be"))
+                    -build()
+
+        }
+
+        }
+        )
+    }
+
+}

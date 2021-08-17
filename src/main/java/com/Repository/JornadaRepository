@@ -1,0 +1,10 @@
+package com.desafio.projeto1.repository;
+
+import com.desafio.projeto1.modelo.Jornada;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface JornadaRepository extends JpaRepository<Jornada,long> {
+
+}
